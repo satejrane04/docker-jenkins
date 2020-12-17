@@ -1,0 +1,20 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - "$PWD/jenkins_home:/var/jenkins_home" #Dont forget to create a folder named "jenkins_home" inside "PWD"
+    networks:
+      - net
+  remote_host:
+    container_name: remote-host
+    image: remote-host       #pull this host image using dockerfile
+    build:
+      context: centos7
+    networks:
+      - net
+networks:
+  net:
